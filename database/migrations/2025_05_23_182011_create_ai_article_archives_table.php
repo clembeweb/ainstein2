@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('ai_article_archives', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ai_article_job_id')->constrained()->cascadeOnDelete();
+            $table->string('keyword');
+            $table->mediumText('html')->nullable();
             $table->timestamps();
         });
     }
