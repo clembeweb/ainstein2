@@ -1,0 +1,2 @@
+[06-Jun-2025 18:55:27 UTC] PHP Fatal error:  Cannot declare class App\Console\Commands\AiRunBatch, because the name is already in use in /home/customer/www/ainstein.it/ainstein_app/app/Providers/AiArticleServiceProvider.php on line 9
+[06-Jun-2025 18:55:27 UTC] PHP Fatal error:  Cannot declare class App\Console\Commands\AiRunBatch, because the name is already in use in /home/customer/www/ainstein.it/ainstein_app/app/Providers/AiArticleServiceProvider.php on line 9
