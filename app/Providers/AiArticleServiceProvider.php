@@ -1,24 +1,27 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Providers;
 
-use Illuminate\Console\Command;
-use App\Models\AiArticleJob;
-use App\Services\AiArticleService;
+use Illuminate\Support\ServiceProvider;
+use App\Console\Commands\AiRunBatch;
 
-class AiRunBatch extends Command
+class AiArticleServiceProvider extends ServiceProvider
 {
-    protected $signature = 'ai:run-batch {--limit=10}';
-    protected $description = 'Process AI article jobs queue';
-
-    public function handle(AiArticleService $ai): int
+    /**
+     * Register any application services.
+     */
+    public function register(): void
     {
-        AiArticleJob::where('status','!=','done')
-            ->limit($this->option('limit'))
-            ->get()
-            ->each(fn ($job) => $ai->handle($job));
+        //
+    }
 
-        $this->info('Batch completed');
-        return self::SUCCESS;
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        $this->commands([
+            AiRunBatch::class,
+        ]);
     }
 }
