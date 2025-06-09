@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('ai_article_jobs', function (Blueprint $table) {
             $table->id();
+            $table->string('keyword');
+            $table->string('status')->default('pending');
+            $table->text('log')->nullable();
             $table->timestamps();
         });
     }
