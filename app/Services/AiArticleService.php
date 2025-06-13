@@ -74,7 +74,6 @@ class AiArticleService
             'engine'    => 'google',
             'q'         => $kw,
             'hl'        => 'it',
-            'api_key'   => env('SERP_API_KEY'),
         ]);
     }
 
