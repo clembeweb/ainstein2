@@ -6,5 +6,11 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    //
+    /**
+     * Creates the application.
+     */
+    public function createApplication()
+    {
+        return require __DIR__.'/../bootstrap/app.php';
+    }
 }
