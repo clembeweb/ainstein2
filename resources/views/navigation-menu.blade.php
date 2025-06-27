@@ -24,6 +24,9 @@
                     <x-nav-link href="{{ route('json-schema') }}" :active="request()->routeIs('json-schema')">
                         {{ __('JSON Schema') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('ai-content-batches') }}" :active="request()->routeIs('ai-content-batches')">
+                        {{ __('AI Content Batch') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -159,6 +162,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('json-schema') }}" :active="request()->routeIs('json-schema')">
                 {{ __('JSON Schema') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('ai-content-batches') }}" :active="request()->routeIs('ai-content-batches')">
+                {{ __('AI Content Batch') }}
             </x-responsive-nav-link>
         </div>
 

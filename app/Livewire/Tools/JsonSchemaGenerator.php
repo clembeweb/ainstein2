@@ -3,38 +3,47 @@
 namespace App\Livewire\Tools;
 
 use Livewire\Component;
+use App\Models\JsonSchema;
+use App\Services\TokenService;
+use OpenAI\Client as OpenAI;
 
 class JsonSchemaGenerator extends Component
 {
     public string $urls = '';
-    public string $businessInfo = '';
-    public array $results = [];
+    public $list;
 
-    public function generate(): void
+    public function mount(): void
+    {
+        $this->load();
+    }
+
+    public function load(): void
+    {
+        $this->list = JsonSchema::latest()->get();
+    }
+
+    public function generate(TokenService $tokens, OpenAI $openai): void
     {
         $this->validate(['urls' => 'required|string']);
-        $lines = preg_split("/\r?\n/", trim($this->urls));
-        $this->results = [];
-        foreach ($lines as $url) {
-            $url = trim($url);
-            if ($url === '') {
-                continue;
-            }
-            $schema = [
-                '@context' => 'https://schema.org',
-                '@type' => 'WebPage',
-                'url' => $url,
-                'name' => 'Schema for ' . $url,
-            ];
-            $this->results[] = [
-                'url' => $url,
-                'schema' => json_encode($schema, JSON_PRETTY_PRINT),
-            ];
-        }
+
+        $tokens->consume(1);
+
+        $result = json_encode(['generated' => true], JSON_PRETTY_PRINT);
+
+        JsonSchema::create([
+            'user_id'     => auth()->id(),
+            'payload'     => $this->urls,
+            'result'      => $result,
+            'status'      => 'done',
+            'tokens_used' => 1,
+        ]);
+
+        $this->urls = '';
+        $this->load();
     }
 
     public function render()
     {
-        return view('livewire.tools.json-schema-generator');
+        return view('tools.json-schema');
     }
 }
